@@ -1,0 +1,23 @@
+{
+    "name": "sonidelav/php-compiled-script",
+    "description": "A Simple Project",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "sonidelav",
+            "email": "sonidelav@hotmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "require-dev": {
+        "codeless/jugglecode": "dev-master"
+    },
+    "scripts": {
+        "build": "php build.php"
+    },
+    "scripts-descriptions": {
+        "build": "Merge anything into a single file"
+    }
+}
