@@ -10,6 +10,23 @@ class DbConnection
     public static $dbConnections = [];
 
     /**
+     * Initialize Component
+     * @param $databaseConfig
+     * @throws DbException
+     */
+    public static function init($databaseConfig)
+    {
+        if (count($databaseConfig))
+        {
+            // Init Database Connections
+            foreach ($databaseConfig as $name => $options)
+            {
+                self::create($name, $options);
+            }
+        }
+    }
+
+    /**
      * @param string $name
      * @param array $options
      * @return Medoo

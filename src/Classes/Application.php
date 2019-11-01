@@ -3,6 +3,7 @@
 require_once 'Http/HttpRequest.php';
 require_once 'Http/HttpResponse.php';
 require_once 'Db/DbConnection.php';
+require_once 'Router.php';
 // Configs
 require '../Config/routes.php';
 require '../Config/database.php';
@@ -13,8 +14,9 @@ class Application
     private $request;
     /** @var HttpResponse */
     private $response;
+
     /** @var array */
-    private $routes = [];
+    private $routesConfig = [];
     /** @var array */
     private $databasesConfig = [];
 
@@ -24,37 +26,28 @@ class Application
 
         $this->request         = new HttpRequest();
         $this->response        = new HttpResponse();
-        $this->routes          = $routes;
+        $this->routesConfig    = $routes;
         $this->databasesConfig = $databases;
 
         // Unset Globals
         unset($route, $databases);
 
-        if( count($this->databasesConfig) )
-        {
-            // Init Database Connections
-            foreach($this->databasesConfig as $name => $options)
-            {
-                DbConnection::create($name, $options);
-            }
-        }
+        // Routes Initialize
+        Router::init($this->routesConfig);
+        // Databases Initialize
+        DbConnection::init($this->databasesConfig);
     }
 
     public function run()
     {
-        $routePath = $this->request->getRoutePath();
-        $route     = ArrayHelper::getValue($this->routes, $routePath);
+        $route = Router::getRouteByRequest($this->request);
         if ($route)
         {
-            if (is_callable($route))
-                $response = call_user_func_array($route, [ $this->request, $this->response, $this ]);
-            else
-                $response = $this->response;
-
+            $response = $route->execute($this->request, $this->response, $this);
             if ($response instanceof HttpResponse)
                 $response->send();
         }
-        $this->response->body("$routePath Not Found")->send();
+        $this->response->body($route->path()." Not Found")->send();
     }
 
     public function getDb($name = 'db')

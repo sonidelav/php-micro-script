@@ -11,7 +11,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-      "ext-pdo": "*"
+      "ext-pdo": "*",
+      "ext-json": "*"
     },
     "require-dev": {
         "codeless/jugglecode": "dev-master"
