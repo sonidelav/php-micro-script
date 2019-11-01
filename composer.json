@@ -10,7 +10,9 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+      "ext-pdo": "*"
+    },
     "require-dev": {
         "codeless/jugglecode": "dev-master"
     },
