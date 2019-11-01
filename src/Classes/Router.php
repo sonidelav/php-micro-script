@@ -12,7 +12,7 @@ class Router
      */
     public static function init($routesConfig)
     {
-        if(count($routesConfig))
+        if (count($routesConfig))
             foreach ($routesConfig as $path => $config)
                 self::createRoute($path, $config);
     }
@@ -24,17 +24,19 @@ class Router
      */
     public static function createRoute($path, $routeConfig)
     {
-        if(is_callable($routeConfig))
+        if(!is_string($path))
+            throw new InvalidArgumentException("Path must be string");
+
+        if (is_callable($routeConfig))
         {
             self::$routes[] = new HttpRoute([
-                'path' => $path,
-                'callable' => $routeConfig
+                'path'     => $path,
+                'callable' => $routeConfig,
             ]);
-        }
-        elseif (is_array($routeConfig))
+        } elseif (is_array($routeConfig))
         {
             self::$routes[] = new HttpRoute(
-                array_merge($routeConfig, ['path' => $path])
+                array_merge($routeConfig, [ 'path' => $path ])
             );
         }
     }
@@ -47,10 +49,11 @@ class Router
     public static function getRouteByRequest(HttpRequest $request)
     {
         $routePath = $request->getRoutePath();
-        $route = null;
-        foreach(self::$routes as $_route)
+        $route     = null;
+        foreach (self::$routes as $_route)
         {
-            if($_route->match($routePath)) {
+            if ($_route->match($routePath))
+            {
                 $route = $_route;
                 break;
             }

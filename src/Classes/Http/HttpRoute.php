@@ -9,9 +9,9 @@ class HttpRoute
 
     public function __construct($config)
     {
-        $this->path        = $config[ 'path' ];
-        $this->middlewares = isset($config[ 'middlewares' ]) ? $config[ 'middlewares' ] : [];
-        $this->callable    = $config[ 'callable' ];
+        $this->path        = ArrayHelper::getValue($config, 'path', null);
+        $this->middlewares = ArrayHelper::getValue($config, 'middlewares', []);
+        $this->callable    = ArrayHelper::getValue($config, 'callable', null);
     }
 
     /**

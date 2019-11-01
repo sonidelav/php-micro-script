@@ -26,6 +26,7 @@ class Application
 
         $this->request         = new HttpRequest();
         $this->response        = new HttpResponse();
+
         $this->routesConfig    = $routes;
         $this->databasesConfig = $databases;
 

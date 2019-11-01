@@ -12,7 +12,9 @@
     "minimum-stability": "dev",
     "require": {
       "ext-pdo": "*",
-      "ext-json": "*"
+      "ext-json": "*",
+      "ext-mbstring": "*",
+      "ext-simplexml": "*"
     },
     "require-dev": {
         "codeless/jugglecode": "dev-master"
