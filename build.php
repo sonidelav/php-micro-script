@@ -11,8 +11,10 @@ $j->mergeScripts = true;
 $j->comments = false;
 $j->run();
 
-// Minify
-$data = file_get_contents(__DIR__.'/dist/app.php');
-// Remove
-$data = str_replace(["\r\n", "\n", "<?php", "?>", "    "], '', $data);
-file_put_contents(__DIR__.'/dist/app.php', '<?php '.$data.' ?>');
+/*
+    // Minify
+    $data = file_get_contents(__DIR__.'/dist/app.php');
+    // Remove
+    $data = str_replace(["\r\n", "\n", "<?php", "?>", "    "], '', $data);
+    file_put_contents(__DIR__.'/dist/app.php', '<?php '.$data.' ?>');
+*/
